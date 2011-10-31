@@ -1,1 +1,16 @@
-läuft...
+# m(d)akecode
+
+## About 
+
+m(d)akecode will be a code generator in a model driven architecture.
+It will be written in Java.
+
+## Features:
+
+* Input: Standard UML
+* Domain: Web Development
+* Output: Can be modified
+
+## License
+This project is licensed under GPL
+http://www.gnu.org/licenses/gpl.txt
