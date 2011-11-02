@@ -17,8 +17,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.Parser;
+package makecode.PSM;
 
-public class PIM2PSMParser {
-
+/**
+ * An enum that specifies the visibility of methods and attributes
+ * 
+ * @author Philipp "Hanspolo" Hirsch
+ *
+ */
+public enum Visibility {
+	PUBLIC,
+	PRIVATE,
+	PROTECTED;
 }

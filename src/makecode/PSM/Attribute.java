@@ -17,8 +17,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.Parser;
+package makecode.PSM;
 
-public class PIM2PSMParser {
+public class Attribute {
 
 }
