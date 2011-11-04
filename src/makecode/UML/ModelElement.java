@@ -17,16 +17,38 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.PSM;
+package makecode.UML;
 
 /**
- * An enum that specifies the visibility of methods and attributes
  * 
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public enum Visibility {
-	PUBLIC,
-	PRIVATE,
-	PROTECTED;
+public class ModelElement {
+
+	private String name;
+	
+	/**
+	 * 
+	 * @param name
+	 */
+	public ModelElement(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 }

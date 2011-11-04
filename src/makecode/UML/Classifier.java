@@ -17,8 +17,35 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.PSM;
+package makecode.UML;
 
-public class Program {
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * 
+ * @author Philipp "Hanspolo" Hirsch
+ *
+ */
+public abstract class Classifier extends ModelElement {
+
+	private List<Set> elementTypes;
+	
+	/**
+	 * 
+	 * @param name
+	 */
+	public Classifier(String name) {
+		super(name);
+		elementTypes = new ArrayList<Set>();
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 */
+	public void addSet(Set s) {
+		elementTypes.add(s);
+	}
+	
 }

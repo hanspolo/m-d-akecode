@@ -17,8 +17,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.PSM;
+package makecode.UML;
 
-public class Method {
+/**
+ * 
+ * @author Philipp "Hanspolo" Hirsch
+ *
+ */
+public abstract class Typed extends ModelElement {
 
+	/**
+	 * 
+	 * @param name
+	 */
+	public Typed(String name) {
+		super(name);
+	}
 }

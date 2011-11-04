@@ -17,8 +17,21 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.PSM;
+package makecode.UML;
 
-public class Attribute {
+/**
+ * 
+ * @author Philipp "Hanspolo" Hirsch
+ *
+ */
+public class Attribute extends Feature {
 
+	/**
+	 * 
+	 * @param name
+	 */
+	public Attribute(String name) {
+		super(name);
+	}
+	
 }
