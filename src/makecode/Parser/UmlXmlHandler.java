@@ -19,32 +19,42 @@
 
 package makecode.Parser;
 
-import java.io.File;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class PIM2PSMParser {
+class UmlXmlHandler extends DefaultHandler {
+
+	/**
+	 * 
+	 */
+	@Override
+	public void startElement(	String uri,
+								String localName,
+								String qName,
+								Attributes attributes) throws SAXException {
+		
+		
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public void endElement(	String uri,
+							String localName,
+							String qName) throws SAXException {
+		
+		
+	}
 	
 	/**
 	 * 
-	 * @param f
 	 */
-	public void parse(File f, String type) throws Exception {
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser sax = factory.newSAXParser();
-			
-			DefaultHandler handler;
-			
-			if (type.equals("ecore"))	
-				handler = new EcoreXmlHandler();
-			else if (type.equals("uml"))
-				handler = new UmlXmlHandler();
-			else
-				throw new Exception();
-			
-			sax.parse(f, handler);
+	@Override
+	public void characters(	char ch[],
+							int start,
+							int length) throws SAXException {
+		
 	}
 }

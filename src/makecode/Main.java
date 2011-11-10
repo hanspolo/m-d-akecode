@@ -19,10 +19,43 @@
 
 package makecode;
 
+import makecode.Parser.PIM2PSMParser;
+import makecode.UI.Arguments;
+
 public class Main {
 
+	private static String progname = "mdakecode";
+	
 	public static void main(String[] args) {
-
+		
+		if (args.length < 1) {
+			System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform]", progname);
+			System.exit(0);
+		}
+		
+		try {
+			Arguments.check(args);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform]", progname);
+			System.exit(0);
+		}
+		
+		
+		if (Arguments.getHelp()) {
+			System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform] %s", progname, System.lineSeparator());
+			System.out.println("--help: Get help, you actually use this");
+			System.out.println("-f file: Location of the file, that will be used as model");
+			System.out.println("-i inputType: Type of the model, i.e. ecore, uml");
+			System.out.println("-t transform: Which transformation should be used, to generate code");
+			System.exit(0);
+		}
+		
+		try {
+			PIM2PSMParser parser = new PIM2PSMParser();
+			parser.parse(Arguments.getFile(), Arguments.getFileType());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
 }

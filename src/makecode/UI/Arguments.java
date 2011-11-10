@@ -19,6 +19,54 @@
 
 package makecode.UI;
 
+import java.io.File;
+
 public class Arguments {
 
+	private static Boolean help = false;
+	private static File file;
+	private static String type;
+	private static String transform;
+	
+	public static void check(String[] args) {
+		
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("--help")) {
+				help = true;
+			}
+			
+			if (args[i].equals("-f")) {
+				file = new File(args[i+1]);
+			}
+			
+			if (args[i].equals("-i")) {
+				type = args[i+1];
+			}
+			
+			if (args[i].equals("-t")) {
+				transform = args[i+1];
+			}
+			
+			System.out.println("help = " + help.toString());
+			System.out.println("file = " + file.toString());
+			System.out.println("type = " + type);
+			System.out.println("transform = " + transform);
+		}
+	}
+	
+	public static Boolean getHelp() {
+		return help;
+	}
+	
+	public static File getFile() {
+		return file;
+	}
+	
+	public static String getFileType() {
+		return type;
+	}
+	
+	public static String getTransform() {
+		return transform;
+	}
 }
