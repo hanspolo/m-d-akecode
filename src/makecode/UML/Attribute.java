@@ -34,4 +34,12 @@ public class Attribute extends Feature {
 		super(name);
 	}
 	
+	public String toString() {
+		String str = "";
+		
+		str += "Attribute : " + getName() + System.lineSeparator();
+		
+		return str;		
+	}
+	
 }

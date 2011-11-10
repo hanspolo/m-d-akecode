@@ -46,11 +46,6 @@ public class Arguments {
 			if (args[i].equals("-t")) {
 				transform = args[i+1];
 			}
-			
-			System.out.println("help = " + help.toString());
-			System.out.println("file = " + file.toString());
-			System.out.println("type = " + type);
-			System.out.println("transform = " + transform);
 		}
 	}
 	

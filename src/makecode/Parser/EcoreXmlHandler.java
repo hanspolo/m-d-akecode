@@ -19,12 +19,24 @@
 
 package makecode.Parser;
 
+import makecode.UML.Attribute;
+import makecode.UML.Class;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 class EcoreXmlHandler extends DefaultHandler {
 
+	private ModelTree tree;
+	private int typeIndex, nameIndex;
+	private String actClass;
+	
+	
+	public EcoreXmlHandler() {
+		tree = ModelTree.getInstance();
+	}
+	
 	/**
 	 * 
 	 */
@@ -34,8 +46,46 @@ class EcoreXmlHandler extends DefaultHandler {
 								String qName,
 								Attributes attributes) throws SAXException {
 		
-		System.out.printf("-- Start of Element %s %s", qName, System.lineSeparator());
+		System.out.printf(	"Start Element : uri = %s, localName = %s, qName = %s %s", uri, localName, qName, System.lineSeparator());
 		
+		for (int j = 0; j < attributes.getLength(); j++)
+			System.out.printf(	"Has Attributes: localName = %s, qName = %s, value = %s %s", 
+									attributes.getLocalName(j),
+									attributes.getQName(j),
+									attributes.getValue(j),
+									System.lineSeparator());
+		
+		// Describes a Package
+		if (qName.equals("ecore:EPackage")) ;
+ 		
+		// Describes a Class, Interface, ...
+		if (qName.equals("eClassifiers")) {
+			typeIndex = attributes.getIndex("xsi:type");
+			nameIndex = attributes.getIndex("name");
+			
+			if (attributes.getValue(typeIndex).equals("ecore:EClass")) {
+				tree.addModelElement(	attributes.getValue(nameIndex), 
+										new Class(attributes.getValue(nameIndex)));
+				actClass = attributes.getValue(nameIndex);
+			}
+		}
+		
+		// Describes a Operation
+		if (qName.equals("eOperations")) ;
+		
+		// Describes a Parameter of an Operation
+		if (qName.equals("eParameters")) ;
+		
+		// Describes an Attribute, Reference, Inheritance ... of a Class
+		if (qName.equals("eStructuralFeatures")) {
+			typeIndex = attributes.getIndex("xsi:type");
+			nameIndex = attributes.getIndex("name");
+			
+			if (attributes.getValue(typeIndex).equals("ecore:EAttribute")) {
+				((Class)tree.getModelElement(actClass)).addFeature(
+						new Attribute(attributes.getValue(nameIndex)));
+			}
+		}
 	}
 
 	/**
@@ -45,8 +95,7 @@ class EcoreXmlHandler extends DefaultHandler {
 	public void endElement(	String uri,
 							String localName,
 							String qName) throws SAXException {
-		
-		System.out.printf("-- End of Element %s %s", qName, System.lineSeparator());
+		return ;
 	}
 	
 	/**
@@ -56,6 +105,6 @@ class EcoreXmlHandler extends DefaultHandler {
 	public void characters(	char ch[],
 							int start,
 							int length) throws SAXException {
-		
+		return ;
 	}
 }

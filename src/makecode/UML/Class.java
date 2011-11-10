@@ -57,4 +57,16 @@ public class Class extends Classifier {
 	public void addInterface(Interface i) {
 		interfaces.add(i);
 	}
+	
+	/**
+	 * 
+	 */
+	public String toString() {
+		String str = "";
+		str = "Classname : " + getName() + System.lineSeparator();
+		for (Feature f : features)
+			str += f.toString() + System.lineSeparator();
+		
+		return str;
+	}
 }
