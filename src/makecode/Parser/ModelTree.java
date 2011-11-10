@@ -1,8 +1,7 @@
 package makecode.Parser;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 import makecode.UML.ModelElement;
 
@@ -10,10 +9,10 @@ public class ModelTree {
 	
 	private static ModelTree instance;
 	
-	private Map<String, ModelElement> elements;
+	private List<ModelElement> elements;
 	
 	private ModelTree() {
-		elements = new HashMap<String, ModelElement>();
+		elements = new LinkedList<ModelElement>();
 	}
 	
 	/**
@@ -32,25 +31,16 @@ public class ModelTree {
 	 * @param name
 	 * @param me
 	 */
-	public void addModelElement(String name, ModelElement me) {
-		elements.put(name, me);
+	public void addModelElement(ModelElement me) {
+		elements.add(me);
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public Collection<ModelElement> getModelElements() {
-		return elements.values();
-	}
-	
-	/**
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public ModelElement getModelElement(String name) {
-		return elements.get(name);
+	public List<ModelElement> getModelElements() {
+		return elements;
 	}
 	
 	/**
@@ -59,7 +49,7 @@ public class ModelTree {
 	public String toString() {
 		String str = "";
 		
-		for (ModelElement e : elements.values())
+		for (ModelElement e : elements)
 			str += e.toString() + System.lineSeparator();
 		
 		return str;

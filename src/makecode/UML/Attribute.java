@@ -37,7 +37,7 @@ public class Attribute extends Feature {
 	public String toString() {
 		String str = "";
 		
-		str += "Attribute : " + getName() + System.lineSeparator();
+		str += "\tpublic $" + getName() + System.lineSeparator();
 		
 		return str;		
 	}

@@ -21,6 +21,10 @@ package makecode.Parser;
 
 import makecode.UML.Attribute;
 import makecode.UML.Class;
+import makecode.UML.Interface;
+import makecode.UML.ModelElement;
+import makecode.UML.Operation;
+import makecode.UML.Parameter;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -30,7 +34,8 @@ class EcoreXmlHandler extends DefaultHandler {
 
 	private ModelTree tree;
 	private int typeIndex, nameIndex;
-	private String actClass;
+	private ModelElement actClass;
+	private Operation actOperation;
 	
 	
 	public EcoreXmlHandler() {
@@ -46,15 +51,6 @@ class EcoreXmlHandler extends DefaultHandler {
 								String qName,
 								Attributes attributes) throws SAXException {
 		
-		System.out.printf(	"Start Element : uri = %s, localName = %s, qName = %s %s", uri, localName, qName, System.lineSeparator());
-		
-		for (int j = 0; j < attributes.getLength(); j++)
-			System.out.printf(	"Has Attributes: localName = %s, qName = %s, value = %s %s", 
-									attributes.getLocalName(j),
-									attributes.getQName(j),
-									attributes.getValue(j),
-									System.lineSeparator());
-		
 		// Describes a Package
 		if (qName.equals("ecore:EPackage")) ;
  		
@@ -62,27 +58,43 @@ class EcoreXmlHandler extends DefaultHandler {
 		if (qName.equals("eClassifiers")) {
 			typeIndex = attributes.getIndex("xsi:type");
 			nameIndex = attributes.getIndex("name");
-			
+		
+			// Classifier is a Class
 			if (attributes.getValue(typeIndex).equals("ecore:EClass")) {
-				tree.addModelElement(	attributes.getValue(nameIndex), 
-										new Class(attributes.getValue(nameIndex)));
-				actClass = attributes.getValue(nameIndex);
+				// is an Interface
+				if (attributes.getIndex("interface") >= 0)
+					actClass = new Interface(attributes.getValue(nameIndex));	
+				// Class is abstract
+				else if (attributes.getIndex("abstract") >= 0) 
+					actClass = new Class(attributes.getValue(nameIndex), true);
+				// normal Class
+				else
+					actClass = new Class(attributes.getValue(nameIndex));
 			}
 		}
 		
 		// Describes a Operation
-		if (qName.equals("eOperations")) ;
+		if (qName.equals("eOperations")) {
+			nameIndex = attributes.getIndex("name");
+			
+			actOperation = new Operation(attributes.getValue(nameIndex));
+		}
 		
 		// Describes a Parameter of an Operation
-		if (qName.equals("eParameters")) ;
+		if (qName.equals("eParameters")) {
+			nameIndex = attributes.getIndex("name");
+			
+			actOperation.addParameter(new Parameter(attributes.getValue(nameIndex)));
+		}
 		
 		// Describes an Attribute, Reference, Inheritance ... of a Class
 		if (qName.equals("eStructuralFeatures")) {
 			typeIndex = attributes.getIndex("xsi:type");
 			nameIndex = attributes.getIndex("name");
 			
+			// Feature is an Attribute
 			if (attributes.getValue(typeIndex).equals("ecore:EAttribute")) {
-				((Class)tree.getModelElement(actClass)).addFeature(
+				((Class)actClass).addFeature(
 						new Attribute(attributes.getValue(nameIndex)));
 			}
 		}
@@ -95,7 +107,16 @@ class EcoreXmlHandler extends DefaultHandler {
 	public void endElement(	String uri,
 							String localName,
 							String qName) throws SAXException {
-		return ;
+		
+		if (qName.equals("eClassifiers"))
+			tree.addModelElement(actClass);
+		
+		if (qName.equals("eOperations")) {
+			if (actClass instanceof Class)
+				((Class)actClass).addFeature(actOperation);
+			else if (actClass instanceof Interface)
+				/*((Interface)actClass).addFeature(actOperation)*/;
+		}
 	}
 	
 	/**

@@ -33,4 +33,12 @@ public class Parameter extends Typed {
 	public Parameter(String name) {
 		super(name);
 	}
+	
+	public String toString() {
+		String str = "";
+		
+		str += getName();
+		
+		return str;
+	}
 }

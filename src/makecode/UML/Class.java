@@ -31,6 +31,7 @@ public class Class extends Classifier {
 
 	private List<Feature> features;
 	private List<Interface> interfaces;
+	private Boolean isAbstract;
 
 	/**
 	 * 
@@ -38,9 +39,23 @@ public class Class extends Classifier {
 	 */
 	public Class(String name) {
 		super(name);
+		isAbstract = false;
+		features = new ArrayList<Feature>();
+		interfaces = new ArrayList<Interface>();
+	}	
+	
+	/**
+	 * 
+	 * @param name
+	 */
+	public Class(String name, Boolean isAbstract) {
+		super(name);
+		this.isAbstract = isAbstract;
 		features = new ArrayList<Feature>();
 		interfaces = new ArrayList<Interface>();
 	}
+	
+	
 	
 	/**
 	 * 
@@ -63,9 +78,16 @@ public class Class extends Classifier {
 	 */
 	public String toString() {
 		String str = "";
-		str = "Classname : " + getName() + System.lineSeparator();
+		
+		if (isAbstract)
+			str += "abstract ";
+		
+		str += "class " + getName() + System.lineSeparator() + "{" + System.lineSeparator();
+		
 		for (Feature f : features)
-			str += f.toString() + System.lineSeparator();
+			str += f.toString();
+		
+		str += "}" + System.lineSeparator();
 		
 		return str;
 	}

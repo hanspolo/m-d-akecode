@@ -33,4 +33,15 @@ public class Interface extends Classifier {
 	public Interface(String name) {
 		super(name);
 	}
+	
+	/**
+	 * 
+	 */
+	public String toString() {
+		String str = "";
+		
+		str = "Interfacename : " + getName() + System.lineSeparator();
+		
+		return str;
+	}
 }

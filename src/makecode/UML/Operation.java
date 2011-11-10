@@ -26,9 +26,29 @@ public class Operation extends Feature {
 
 	List<Parameter> parameters;
 
-	
 	public Operation(String name) {
 		super(name);
 		parameters = new ArrayList<Parameter>();
+	}
+	
+	/**
+	 * 
+	 * @param p
+	 */
+	public void addParameter(Parameter p) {
+		parameters.add(p);
+	}
+	
+	public String toString() {
+		String str = "";
+		
+		str += "\tpublic function " + getName() + "( ";
+		
+		for (Parameter p : parameters)
+			str += p.toString();
+		
+		str += " )" + System.lineSeparator();
+		
+		return str;
 	}
 }
