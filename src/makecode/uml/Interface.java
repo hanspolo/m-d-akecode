@@ -17,33 +17,50 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public abstract class Feature extends Class {
+public class Interface extends Classifier {
 
-	VisibilityType visibility;
-	
+	private List<Feature> features;
+
 	/**
 	 * 
 	 * @param name
 	 */
-	public Feature(String name) {
+	public Interface(String name) {
 		super(name);
-		visibility = VisibilityType.NONE;
+		features = new ArrayList<Feature>();		
 	}
 	
 	/**
 	 * 
-	 * @param name
-	 * @param v
+	 * @param f
 	 */
-	public Feature(String name, VisibilityType v) {
-		super(name);
-		visibility = v;
+	public void addFeature(Feature f) {
+		features.add(f);
+	}
+	
+	/**
+	 * 
+	 */
+	public String toString() {
+		String str = "";
+		
+		str = "interface " + getName() + " {" + System.lineSeparator();
+
+		for (Feature f : features)
+			str += f.toString();
+		
+		str += "}" + System.lineSeparator();
+		
+		return str;
 	}
 }

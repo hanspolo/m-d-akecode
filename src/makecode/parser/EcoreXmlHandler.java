@@ -17,14 +17,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.Parser;
+package makecode.parser;
 
-import makecode.UML.Attribute;
-import makecode.UML.Class;
-import makecode.UML.Interface;
-import makecode.UML.ModelElement;
-import makecode.UML.Operation;
-import makecode.UML.Parameter;
+import makecode.uml.Attribute;
+import makecode.uml.Class;
+import makecode.uml.DataType;
+import makecode.uml.Interface;
+import makecode.uml.ModelElement;
+import makecode.uml.Operation;
+import makecode.uml.Parameter;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -52,13 +53,16 @@ class EcoreXmlHandler extends DefaultHandler {
 								Attributes attributes) throws SAXException {
 		
 		// Describes a Package
-		if (qName.equals("ecore:EPackage")) ;
+		if (qName.equals("ecore:EPackage")) {
+			nameIndex = attributes.getIndex("name");
+		}
+		
  		
 		// Describes a Class, Interface, ...
 		if (qName.equals("eClassifiers")) {
 			typeIndex = attributes.getIndex("xsi:type");
 			nameIndex = attributes.getIndex("name");
-		
+
 			// Classifier is a Class
 			if (attributes.getValue(typeIndex).equals("ecore:EClass")) {
 				// is an Interface
@@ -71,31 +75,70 @@ class EcoreXmlHandler extends DefaultHandler {
 				else
 					actClass = new Class(attributes.getValue(nameIndex));
 			}
+			
+			
+			// Classifier is a DataType
+			if (attributes.getValue(typeIndex).equals("ecore:EDataType"))
+				;
 		}
 		
-		// Describes a Operation
+		
+		// Describes an Operation
 		if (qName.equals("eOperations")) {
 			nameIndex = attributes.getIndex("name");
+			typeIndex = attributes.getIndex("xsi:type");
 			
-			actOperation = new Operation(attributes.getValue(nameIndex));
+			
+			// Operation returns a value
+			if (attributes.getIndex("eType") >= 0)
+				actOperation = 
+					new Operation(	attributes.getValue(nameIndex),
+									this.convertEType(attributes.getValue(attributes.getIndex("eType"))));
+			// Operation doesn't return a value
+			else
+				actOperation = new Operation(	attributes.getValue(nameIndex));
 		}
+		
 		
 		// Describes a Parameter of an Operation
 		if (qName.equals("eParameters")) {
 			nameIndex = attributes.getIndex("name");
+			typeIndex = attributes.getIndex("xsi:type");
 			
-			actOperation.addParameter(new Parameter(attributes.getValue(nameIndex)));
+			
+			// Add Parameter to Operation
+			actOperation.addParameter(
+					new Parameter(	attributes.getValue(nameIndex),
+									this.convertEType(attributes.getValue(attributes.getIndex("eType")))));
 		}
+		
 		
 		// Describes an Attribute, Reference, Inheritance ... of a Class
 		if (qName.equals("eStructuralFeatures")) {
 			typeIndex = attributes.getIndex("xsi:type");
 			nameIndex = attributes.getIndex("name");
 			
+			
 			// Feature is an Attribute
 			if (attributes.getValue(typeIndex).equals("ecore:EAttribute")) {
-				((Class)actClass).addFeature(
-						new Attribute(attributes.getValue(nameIndex)));
+				Attribute attr = 
+						new Attribute(	attributes.getValue(nameIndex), 
+										this.convertEType(attributes.getValue(attributes.getIndex("eType"))));
+				
+				attr.setIsChangeable(	attributes.getIndex("changeable")	>= 0);
+				attr.setIsId(			attributes.getIndex("id")			>= 0);
+				attr.setIsOrdered(		attributes.getIndex("ordered")		>= 0);
+				attr.setIsUnique(		attributes.getIndex("unique")		>= 0);
+				attr.setIsTransient(	attributes.getIndex("transient")	>= 0);
+				attr.setIsVolatile(		attributes.getIndex("volatile")		>= 0);
+				
+				((Class)actClass).addFeature(attr);
+			}
+			
+			
+			// Feature is a Reference
+			if (attributes.getValue(typeIndex).equals("ecore:EReference")) {
+				
 			}
 		}
 	}
@@ -115,7 +158,7 @@ class EcoreXmlHandler extends DefaultHandler {
 			if (actClass instanceof Class)
 				((Class)actClass).addFeature(actOperation);
 			else if (actClass instanceof Interface)
-				/*((Interface)actClass).addFeature(actOperation)*/;
+				((Interface)actClass).addFeature(actOperation);
 		}
 	}
 	
@@ -127,5 +170,15 @@ class EcoreXmlHandler extends DefaultHandler {
 							int start,
 							int length) throws SAXException {
 		return ;
+	}
+	
+	
+	private DataType convertEType(String str) {
+		String[] parts = str.split("//");
+		str = parts[parts.length - 1];
+		
+		DataType dt = new DataType(str.substring(1));
+		
+		return dt;
 	}
 }

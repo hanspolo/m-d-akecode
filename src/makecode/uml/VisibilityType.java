@@ -17,20 +17,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
 
 /**
  * 
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public class Set extends DataType {
+public enum VisibilityType {
 
-	/**
-	 * 
-	 * @param name
-	 */
-	public Set(String name) {
-		super(name);
-	}
+	PUBLIC,
+	PROTECTED,
+	PRIVATE,
+	NONE
 }

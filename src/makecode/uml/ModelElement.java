@@ -17,38 +17,38 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * 
+ * @author Philipp "Hanspolo" Hirsch
+ *
+ */
+public class ModelElement {
 
-public class Operation extends Feature {
-
-	List<Parameter> parameters;
-
-	public Operation(String name) {
-		super(name);
-		parameters = new ArrayList<Parameter>();
-	}
+	private String name;
 	
 	/**
 	 * 
-	 * @param p
+	 * @param name
 	 */
-	public void addParameter(Parameter p) {
-		parameters.add(p);
+	public ModelElement(String name) {
+		this.name = name;
 	}
-	
-	public String toString() {
-		String str = "";
-		
-		str += "\tpublic function " + getName() + "( ";
-		
-		for (Parameter p : parameters)
-			str += p.toString();
-		
-		str += " )" + System.lineSeparator();
-		
-		return str;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

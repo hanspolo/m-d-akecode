@@ -17,38 +17,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.helper;
 
-/**
- * 
- * @author Philipp "Hanspolo" Hirsch
- *
- */
-public class ModelElement {
+public class MetaModelReader {
 
-	private String name;
-	
-	/**
-	 * 
-	 * @param name
-	 */
-	public ModelElement(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 }

@@ -17,77 +17,68 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 
- * @author Philipp "Hanspolo" Hirsch
- *
- */
-public class Class extends Classifier {
+public class Operation extends Feature {
 
-	private List<Feature> features;
-	private List<Interface> interfaces;
-	private Boolean isAbstract;
+	List<Parameter> parameters;
+	DataType type;
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public Class(String name) {
+	public Operation(String name) {
 		super(name);
-		isAbstract = false;
-		features = new ArrayList<Feature>();
-		interfaces = new ArrayList<Interface>();
-	}	
+		parameters = new ArrayList<Parameter>();
+	}
 	
-	/**
-	 * 
-	 * @param name
-	 */
-	public Class(String name, Boolean isAbstract) {
+	public Operation(String name, DataType type) {
 		super(name);
-		this.isAbstract = isAbstract;
-		features = new ArrayList<Feature>();
-		interfaces = new ArrayList<Interface>();
-	}
-	
-	
-	
-	/**
-	 * 
-	 * @param f
-	 */
-	public void addFeature(Feature f) {
-		features.add(f);
+		parameters = new ArrayList<Parameter>();
+		this.type = type;
 	}
 	
 	/**
 	 * 
-	 * @param i
+	 * @param p
 	 */
-	public void addInterface(Interface i) {
-		interfaces.add(i);
+	public void addParameter(Parameter p) {
+		parameters.add(p);
 	}
 	
+	/**
+	 * @return the type
+	 */
+	public DataType getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(DataType type) {
+		this.type = type;
+	}
+
 	/**
 	 * 
 	 */
 	public String toString() {
 		String str = "";
 		
-		if (isAbstract)
-			str += "abstract ";
+		str += "\tpublic ";
+		if (type != null)
+			str += type.toString() + " ";
+		str += "function " + getName() + "( ";
 		
-		str += "class " + getName() + System.lineSeparator() + "{" + System.lineSeparator();
+		for (Parameter p : parameters)
+			str += p.toString();
 		
-		for (Feature f : features)
-			str += f.toString();
-		
-		str += "}" + System.lineSeparator();
+		str += " )" + System.lineSeparator();
 		
 		return str;
 	}

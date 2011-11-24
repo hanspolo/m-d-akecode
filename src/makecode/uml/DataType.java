@@ -17,44 +17,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.Parser;
+package makecode.uml;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
-class UmlXmlHandler extends DefaultHandler {
-
-	/**
-	 * 
-	 */
-	@Override
-	public void startElement(	String uri,
-								String localName,
-								String qName,
-								Attributes attributes) throws SAXException {
-		
-		
-	}
+/**
+ * 
+ * @author Philipp "Hanspolo" Hirsch
+ *
+ */
+public class DataType extends Classifier {
 
 	/**
 	 * 
+	 * @param name
 	 */
-	@Override
-	public void endElement(	String uri,
-							String localName,
-							String qName) throws SAXException {
-		
-		
+	public DataType(String name) {
+		super(name);
 	}
 	
 	/**
 	 * 
 	 */
-	@Override
-	public void characters(	char ch[],
-							int start,
-							int length) throws SAXException {
-		
+	public String toString() {
+		return getName();
 	}
 }

@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="">
-  <eClassifiers xsi:type="ecore:EClass" name="ClassName">
-    <eOperations name="methodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eParameters name="parameter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Package"
+    nsURI="uri.ns" nsPrefix="prefix.ns">
+  <eClassifiers xsi:type="ecore:EClass" name="Interface" interface="true">
+    <eOperations name="interfaceMethod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractClass" abstract="true">
+    <eOperations name="abstractMethod">
+      <eParameters name="param1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="abstractMethodImpl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstractAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//AbstractClass #//Interface">
+    <eOperations name="classMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="classAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unidirectionalReference"
+        lowerBound="1" eType="#//UnidirectionalClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bidirectionalReference"
+        eType="#//BidirectionalClass" eOpposite="#//BidirectionalClass/oppositeReference"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="privateAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        changeable="false" defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Container">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ContainmentReference" upperBound="-1"
+        eType="#//Class" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnidirectionalClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BidirectionalClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oppositeReference" lowerBound="1"
+        upperBound="-1" eType="#//Class" eOpposite="#//Class/bidirectionalReference"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="DataType" instanceTypeName="asdf">
+    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+      <details key="baseType" value="http://www.eclipse.org/emf/2002/Ecore#EInt"/>
+    </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>

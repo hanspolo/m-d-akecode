@@ -1,9 +1,9 @@
-package makecode.Parser;
+package makecode.parser;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import makecode.UML.ModelElement;
+import makecode.uml.ModelElement;
 
 public class ModelTree {
 	

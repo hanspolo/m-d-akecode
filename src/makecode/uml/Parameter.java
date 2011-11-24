@@ -17,8 +17,31 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.Parser;
+package makecode.uml;
 
-public class PSM2CodeParser {
+/**
+ * 
+ * @author Philipp "Hanspolo" Hirsch
+ *
+ */
+public class Parameter extends Typed {
 
+	DataType type;
+	
+	/**
+	 * 
+	 * @param name
+	 */
+	public Parameter(String name, DataType type) {
+		super(name);
+		this.type = type;
+	}
+	
+	public String toString() {
+		String str = "";
+		
+		str += this.type + " " + getName();
+		
+		return str;
+	}
 }

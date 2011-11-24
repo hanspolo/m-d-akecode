@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UI;
+package makecode.ui;
 
 import java.io.File;
 
@@ -27,6 +27,7 @@ public class Arguments {
 	private static File file;
 	private static String type;
 	private static String transform;
+	private static Boolean createDb = false;
 	
 	public static void check(String[] args) {
 		
@@ -41,6 +42,10 @@ public class Arguments {
 			
 			if (args[i].equals("-i")) {
 				type = args[i+1];
+			}
+			
+			if (args[i].equals("-db")) {
+				createDb = true;
 			}
 			
 			if (args[i].equals("-t")) {
@@ -63,5 +68,9 @@ public class Arguments {
 	
 	public static String getTransform() {
 		return transform;
+	}
+	
+	public static Boolean getCreateDb() {
+		return createDb;
 	}
 }

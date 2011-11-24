@@ -19,8 +19,8 @@
 
 package makecode;
 
-import makecode.Parser.PIM2PSMParser;
-import makecode.UI.Arguments;
+import makecode.parser.PIM2PSMParser;
+import makecode.ui.Arguments;
 
 public class Main {
 
@@ -29,7 +29,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		if (args.length < 1) {
-			System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform]", progname);
+			System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform] [-db]", progname);
 			System.exit(0);
 		}
 		
@@ -37,7 +37,7 @@ public class Main {
 			Arguments.check(args);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform]", progname);
+			System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform] [-db]", progname);
 			System.exit(0);
 		}
 		
@@ -48,6 +48,7 @@ public class Main {
 			System.out.println("-f file: Location of the file, that will be used as model");
 			System.out.println("-i inputType: Type of the model, i.e. ecore, uml");
 			System.out.println("-t transform: Which transformation should be used, to generate code");
+			System.out.println("-db: Do also create a Database scheme");
 			System.exit(0);
 		}
 		

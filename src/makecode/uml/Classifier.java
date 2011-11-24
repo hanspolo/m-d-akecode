@@ -17,16 +17,35 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public class AssociationClass {
+public abstract class Classifier extends ModelElement {
 
-	public AssociationClass(String name) {
-		
+	private List<Set> elementTypes;
+	
+	/**
+	 * 
+	 * @param name
+	 */
+	public Classifier(String name) {
+		super(name);
+		elementTypes = new ArrayList<Set>();
 	}
+	
+	/**
+	 * 
+	 * @param s
+	 */
+	public void addSet(Set s) {
+		elementTypes.add(s);
+	}
+	
 }

@@ -17,28 +17,33 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
 
 /**
  * 
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public class Parameter extends Typed {
+public abstract class Feature extends Class {
 
+	VisibilityType visibility;
+	
 	/**
 	 * 
 	 * @param name
 	 */
-	public Parameter(String name) {
+	public Feature(String name) {
 		super(name);
+		visibility = VisibilityType.NONE;
 	}
 	
-	public String toString() {
-		String str = "";
-		
-		str += getName();
-		
-		return str;
+	/**
+	 * 
+	 * @param name
+	 * @param v
+	 */
+	public Feature(String name, VisibilityType v) {
+		super(name);
+		visibility = v;
 	}
 }

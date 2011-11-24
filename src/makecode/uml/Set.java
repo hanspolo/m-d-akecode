@@ -17,20 +17,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
 
 /**
  * 
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public class DataType extends Classifier {
+public class Set extends DataType {
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public DataType(String name) {
+	public Set(String name) {
 		super(name);
 	}
 }

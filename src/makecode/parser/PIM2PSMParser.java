@@ -17,31 +17,35 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.parser;
 
-/**
- * 
- * @author Philipp "Hanspolo" Hirsch
- *
- */
-public class Interface extends Classifier {
+import java.io.File;
 
-	/**
-	 * 
-	 * @param name
-	 */
-	public Interface(String name) {
-		super(name);
-	}
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.helpers.DefaultHandler;
+
+public class PIM2PSMParser {
 	
 	/**
 	 * 
+	 * @param f
 	 */
-	public String toString() {
-		String str = "";
-		
-		str = "Interfacename : " + getName() + System.lineSeparator();
-		
-		return str;
+	public void parse(File f, String type) throws Exception {
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser sax = factory.newSAXParser();
+			
+			DefaultHandler handler;
+			
+			if (type.equals("ecore"))	
+				handler = new EcoreXmlHandler();
+			else if (type.equals("uml"))
+				handler = new UmlXmlHandler();
+			else
+				throw new Exception();
+			
+			sax.parse(f, handler);
+			System.out.print(ModelTree.getInstance().toString());
 	}
 }

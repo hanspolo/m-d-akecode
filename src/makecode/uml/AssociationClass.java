@@ -17,20 +17,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package makecode.UML;
+package makecode.uml;
 
 /**
  * 
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public abstract class Typed extends ModelElement {
+public class AssociationClass {
 
-	/**
-	 * 
-	 * @param name
-	 */
-	public Typed(String name) {
-		super(name);
+	public AssociationClass(String name) {
+		
 	}
 }
