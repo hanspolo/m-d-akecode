@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,23 +29,23 @@ import java.util.List;
  */
 public abstract class Classifier extends ModelElement {
 
-	private List<Set> elementTypes;
-	
-	/**
-	 * 
-	 * @param name
-	 */
-	public Classifier(String name) {
-		super(name);
-		elementTypes = new ArrayList<Set>();
-	}
-	
-	/**
-	 * 
-	 * @param s
-	 */
-	public void addSet(Set s) {
-		elementTypes.add(s);
-	}
-	
+    private List<Set> elementTypes;
+    
+    /**
+     * 
+     * @param name
+     */
+    public Classifier(String name) {
+        super(name);
+        elementTypes = new ArrayList<Set>();
+    }
+    
+    /**
+     * 
+     * @param s
+     */
+    public void addSet(Set s) {
+        elementTypes.add(s);
+    }
+    
 }

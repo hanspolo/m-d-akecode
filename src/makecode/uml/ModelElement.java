@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,29 +26,29 @@ package makecode.uml;
  */
 public class ModelElement {
 
-	private String name;
-	
-	/**
-	 * 
-	 * @param name
-	 */
-	public ModelElement(String name) {
-		this.name = name;
-	}
+    private String name;
+    
+    /**
+     * 
+     * @param name
+     */
+    public ModelElement(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * 
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 }

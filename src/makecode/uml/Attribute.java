@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,135 +26,135 @@ package makecode.uml;
  */
 public class Attribute extends Feature {
 
-	DataType type;
-	Boolean isChangeable;
-	Boolean isId;
-	Boolean isOrdered;
-	Boolean isUnique;
-	Boolean isTransient;				
-	Boolean isVolatile;
-	
-	/**
-	 * 
-	 * @param name
-	 * @param type
-	 */
-	public Attribute(String name, DataType type) {
-		super(name);
-		this.type = type;
-	}
-	
-	/**
-	 * @return the type
-	 */
-	public DataType getType() {
-		return type;
-	}
+    DataType type;
+    Boolean isChangeable;
+    Boolean isId;
+    Boolean isOrdered;
+    Boolean isUnique;
+    Boolean isTransient;                
+    Boolean isVolatile;
+    
+    /**
+     * 
+     * @param name
+     * @param type
+     */
+    public Attribute(String name, DataType type) {
+        super(name);
+        this.type = type;
+    }
+    
+    /**
+     * @return the type
+     */
+    public DataType getType() {
+        return type;
+    }
 
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(DataType type) {
-		this.type = type;
-	}
+    /**
+     * @param type the type to set
+     */
+    public void setType(DataType type) {
+        this.type = type;
+    }
 
-	/**
-	 * @return the isChangeable
-	 */
-	public Boolean getIsChangeable() {
-		return isChangeable;
-	}
+    /**
+     * @return the isChangeable
+     */
+    public Boolean getIsChangeable() {
+        return isChangeable;
+    }
 
-	/**
-	 * @param isChangeable the isChangeable to set
-	 */
-	public void setIsChangeable(Boolean isChangeable) {
-		this.isChangeable = isChangeable;
-	}
+    /**
+     * @param isChangeable the isChangeable to set
+     */
+    public void setIsChangeable(Boolean isChangeable) {
+        this.isChangeable = isChangeable;
+    }
 
-	/**
-	 * @return the isId
-	 */
-	public Boolean getIsId() {
-		return isId;
-	}
+    /**
+     * @return the isId
+     */
+    public Boolean getIsId() {
+        return isId;
+    }
 
-	/**
-	 * @param isId the isId to set
-	 */
-	public void setIsId(Boolean isId) {
-		this.isId = isId;
-	}
+    /**
+     * @param isId the isId to set
+     */
+    public void setIsId(Boolean isId) {
+        this.isId = isId;
+    }
 
-	/**
-	 * @return the isOrdered
-	 */
-	public Boolean getIsOrdered() {
-		return isOrdered;
-	}
+    /**
+     * @return the isOrdered
+     */
+    public Boolean getIsOrdered() {
+        return isOrdered;
+    }
 
-	/**
-	 * @param isOrdered the isOrdered to set
-	 */
-	public void setIsOrdered(Boolean isOrdered) {
-		this.isOrdered = isOrdered;
-	}
+    /**
+     * @param isOrdered the isOrdered to set
+     */
+    public void setIsOrdered(Boolean isOrdered) {
+        this.isOrdered = isOrdered;
+    }
 
-	/**
-	 * @return the isUnique
-	 */
-	public Boolean getIsUnique() {
-		return isUnique;
-	}
+    /**
+     * @return the isUnique
+     */
+    public Boolean getIsUnique() {
+        return isUnique;
+    }
 
-	/**
-	 * @param isUnique the isUnique to set
-	 */
-	public void setIsUnique(Boolean isUnique) {
-		this.isUnique = isUnique;
-	}
+    /**
+     * @param isUnique the isUnique to set
+     */
+    public void setIsUnique(Boolean isUnique) {
+        this.isUnique = isUnique;
+    }
 
-	/**
-	 * @return the isTransient
-	 */
-	public Boolean getIsTransient() {
-		return isTransient;
-	}
+    /**
+     * @return the isTransient
+     */
+    public Boolean getIsTransient() {
+        return isTransient;
+    }
 
-	/**
-	 * @param isTransient the isTransient to set
-	 */
-	public void setIsTransient(Boolean isTransient) {
-		this.isTransient = isTransient;
-	}
+    /**
+     * @param isTransient the isTransient to set
+     */
+    public void setIsTransient(Boolean isTransient) {
+        this.isTransient = isTransient;
+    }
 
-	/**
-	 * @return the isVolatile
-	 */
-	public Boolean getIsVolatile() {
-		return isVolatile;
-	}
+    /**
+     * @return the isVolatile
+     */
+    public Boolean getIsVolatile() {
+        return isVolatile;
+    }
 
-	/**
-	 * @param isVolatile the isVolatile to set
-	 */
-	public void setIsVolatile(Boolean isVolatile) {
-		this.isVolatile = isVolatile;
-	}
+    /**
+     * @param isVolatile the isVolatile to set
+     */
+    public void setIsVolatile(Boolean isVolatile) {
+        this.isVolatile = isVolatile;
+    }
 
 
-	/**
-	 * @return String
-	 */
-	public String toString() {
-		String str = "";
-		
-		str += "\tpublic ";
-		if (type != null)
-			str += type.toString() + " ";
-		str += "$" + getName() + System.lineSeparator();
-		
-		return str;		
-	}
-	
+    /**
+     * @return String
+     */
+    public String toString() {
+        String str = "";
+        
+        str += "\tpublic ";
+        if (type != null)
+            str += type.toString() + " ";
+        str += "$" + getName() + System.lineSeparator();
+        
+        return str;        
+    }
+    
 }

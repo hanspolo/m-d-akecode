@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,36 +25,36 @@ import org.xml.sax.helpers.DefaultHandler;
 
 class UmlXmlHandler extends DefaultHandler {
 
-	/**
-	 * 
-	 */
-	@Override
-	public void startElement(	String uri,
-								String localName,
-								String qName,
-								Attributes attributes) throws SAXException {
-		
-		
-	}
+    /**
+     * 
+     */
+    @Override
+    public void startElement(   String uri,
+                                String localName,
+                                String qName,
+                                Attributes attributes) throws SAXException {
+        
+        
+    }
 
-	/**
-	 * 
-	 */
-	@Override
-	public void endElement(	String uri,
-							String localName,
-							String qName) throws SAXException {
-		
-		
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void characters(	char ch[],
-							int start,
-							int length) throws SAXException {
-		
-	}
+    /**
+     * 
+     */
+    @Override
+    public void endElement( String uri,
+                            String localName,
+                            String qName) throws SAXException {
+        
+        
+    }
+    
+    /**
+     * 
+     */
+    @Override
+    public void characters( char ch[],
+                            int start,
+                            int length) throws SAXException {
+        
+    }
 }

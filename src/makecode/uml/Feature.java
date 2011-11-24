@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,24 +26,24 @@ package makecode.uml;
  */
 public abstract class Feature extends Class {
 
-	VisibilityType visibility;
-	
-	/**
-	 * 
-	 * @param name
-	 */
-	public Feature(String name) {
-		super(name);
-		visibility = VisibilityType.NONE;
-	}
-	
-	/**
-	 * 
-	 * @param name
-	 * @param v
-	 */
-	public Feature(String name, VisibilityType v) {
-		super(name);
-		visibility = v;
-	}
+    VisibilityType visibility;
+    
+    /**
+     * 
+     * @param name
+     */
+    public Feature(String name) {
+        super(name);
+        visibility = VisibilityType.NONE;
+    }
+    
+    /**
+     * 
+     * @param name
+     * @param v
+     */
+    public Feature(String name, VisibilityType v) {
+        super(name);
+        visibility = v;
+    }
 }

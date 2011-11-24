@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,23 +29,23 @@ import java.util.List;
  */
 public class Association extends ModelElement {
 
-	List<AssociationEnd> association;
-	
-	/**
-	 * 
-	 * @param name
-	 * @param a
-	 * @param b
-	 */
-	public Association (String name, AssociationEnd a, AssociationEnd b) {
-		super(name);
-		association = new ArrayList<AssociationEnd>();
-		
-		association.add(a);
-		association.add(b);
-	}
-	
-	public void addAssociation(AssociationEnd a) {
-		association.add(a);
-	}
+    List<AssociationEnd> association;
+    
+    /**
+     * 
+     * @param name
+     * @param a
+     * @param b
+     */
+    public Association (String name, AssociationEnd a, AssociationEnd b) {
+        super(name);
+        association = new ArrayList<AssociationEnd>();
+        
+        association.add(a);
+        association.add(b);
+    }
+    
+    public void addAssociation(AssociationEnd a) {
+        association.add(a);
+    }
 }

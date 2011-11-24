@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,25 +27,25 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class PIM2PSMParser {
-	
-	/**
-	 * 
-	 * @param f
-	 */
-	public void parse(File f, String type) throws Exception {
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser sax = factory.newSAXParser();
-			
-			DefaultHandler handler;
-			
-			if (type.equals("ecore"))	
-				handler = new EcoreXmlHandler();
-			else if (type.equals("uml"))
-				handler = new UmlXmlHandler();
-			else
-				throw new Exception();
-			
-			sax.parse(f, handler);
-			System.out.print(ModelTree.getInstance().toString());
-	}
+    
+    /**
+     * 
+     * @param f
+     */
+    public void parse(File f, String type) throws Exception {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser sax = factory.newSAXParser();
+            
+            DefaultHandler handler;
+            
+            if (type.equals("ecore"))    
+                handler = new EcoreXmlHandler();
+            else if (type.equals("uml"))
+                handler = new UmlXmlHandler();
+            else
+                throw new Exception();
+            
+            sax.parse(f, handler);
+            System.out.print(ModelTree.getInstance().toString());
+    }
 }

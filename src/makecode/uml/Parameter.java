@@ -1,7 +1,7 @@
 /*
  *  m(d)akecode is a code generator for model driven development.
- *  Copyright (C)	2011 Philipp "Hanspolo" Hirsch
- *  				2011 Dennis Priefer
+ *  Copyright (C)    2011 Philipp "Hanspolo" Hirsch
+ *                  2011 Dennis Priefer
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,22 +26,22 @@ package makecode.uml;
  */
 public class Parameter extends Typed {
 
-	DataType type;
-	
-	/**
-	 * 
-	 * @param name
-	 */
-	public Parameter(String name, DataType type) {
-		super(name);
-		this.type = type;
-	}
-	
-	public String toString() {
-		String str = "";
-		
-		str += this.type + " " + getName();
-		
-		return str;
-	}
+    DataType type;
+    
+    /**
+     * 
+     * @param name
+     */
+    public Parameter(String name, DataType type) {
+        super(name);
+        this.type = type;
+    }
+    
+    public String toString() {
+        String str = "";
+        
+        str += this.type + " " + getName();
+        
+        return str;
+    }
 }
