@@ -19,7 +19,8 @@
 
 package makecode;
 
-import makecode.parser.PIM2PSMParser;
+import makecode.pcparser.PSM2CodeParser;
+import makecode.ppparser.PIM2PSMParser;
 import makecode.ui.Arguments;
 
 public class Main {
@@ -53,8 +54,11 @@ public class Main {
         }
         
         try {
-            PIM2PSMParser parser = new PIM2PSMParser();
-            parser.parse(Arguments.getFile(), Arguments.getFileType());
+            PIM2PSMParser ppparser = new PIM2PSMParser();
+            ppparser.parse(Arguments.getFile(), Arguments.getFileType());
+            
+            PSM2CodeParser pcparser = new PSM2CodeParser();
+            pcparser.parse(Arguments.getTransform());
         } catch (Exception e) {
             e.printStackTrace();
         }
