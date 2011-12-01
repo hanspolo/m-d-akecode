@@ -24,9 +24,20 @@ package makecode.uml;
  * @author Philipp "Hanspolo" Hirsch
  *
  */
-public class AssociationClass {
-
-    public AssociationClass(String name) {
-        
-    }
+public enum AssociationType {
+	IMPLEMENTS("implements"),
+	EXTENDS("extends"),
+	UNIDIRECTIONAL("unidirectional"),
+	BIDIRECTIONAL("bidirectional"),
+	CONTAINS("contains");
+	
+	String name;
+	
+	private AssociationType(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 }

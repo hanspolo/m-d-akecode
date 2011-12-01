@@ -28,8 +28,9 @@ public class AssociationEnd extends Feature {
 
     int lowerBound;
     int upperBound;
-    boolean composition;
+    Association association;
     AssociationEnd otherEnd;
+    boolean containment;
     
     /**
      * 
@@ -38,29 +39,13 @@ public class AssociationEnd extends Feature {
      * @param upper
      * @param composition
      */
-    public AssociationEnd (String name, int lower, int upper, boolean composition) {
+    public AssociationEnd (String name, int lower, int upper, boolean containment) {
         super(name);
         this.lowerBound     = lower;
         this.upperBound     = upper;
-        this.composition     = composition;
+        this.containment    = false;
     }
     
-    /**
-     * 
-     * @param name
-     * @param lower
-     * @param upper
-     * @param composition
-     * @param other
-     */
-    public AssociationEnd (String name, int lower, int upper, boolean composition, AssociationEnd other) {
-        super(name);
-        this.lowerBound     = lower;
-        this.upperBound     = upper;
-        this.composition     = composition;
-        this.otherEnd        = other;
-    }
-
     /**
      * @return the lowerBound
      */
@@ -90,30 +75,57 @@ public class AssociationEnd extends Feature {
     }
 
     /**
-     * @return the composition
-     */
-    public boolean isComposition() {
-        return composition;
-    }
+	 * @return the composite
+	 */
+	public boolean isContainment() {
+		return containment;
+	}
 
-    /**
-     * @param composition the composition to set
-     */
-    public void setComposition(boolean composition) {
-        this.composition = composition;
-    }
+	/**
+	 * @param composite the composite to set
+	 */
+	public void setContainment(boolean containment) {
+		this.containment = containment;
+	}
 
-    /**
-     * @return the otherEnd
-     */
-    public AssociationEnd getOtherEnd() {
-        return otherEnd;
-    }
+	/**
+	 * @return the otherEnd
+	 */
+	public AssociationEnd getOtherEnd() {
+		return otherEnd;
+	}
 
-    /**
-     * @param otherEnd the otherEnd to set
-     */
-    public void setOtherEnd(AssociationEnd otherEnd) {
-        this.otherEnd = otherEnd;
+	/**
+	 * @param otherEnd the otherEnd to set
+	 */
+	public void setOtherEnd(AssociationEnd otherEnd) {
+		this.otherEnd = otherEnd;
+	}
+
+	/**
+	 * @return the association
+	 */
+	public Association getAssociation() {
+		return association;
+	}
+
+	/**
+	 * @param association the association to set
+	 */
+	public void setAssociation(Association association) {
+		this.association = association;
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
+		String str = "";
+		
+		str += "From (" + this.lowerBound + "..." + this.upperBound + ") ";
+		str += "To (" + getOtherEnd().lowerBound + "..." + getOtherEnd().upperBound + ")";
+		
+    	return "\t" + str + System.lineSeparator();
     }
 }

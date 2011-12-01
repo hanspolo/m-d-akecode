@@ -30,7 +30,7 @@ import java.util.List;
 public class Class extends Classifier {
 
     private List<Feature> features;
-    private List<Interface> interfaces;
+    private List<Classifier> superTypes;
     private Boolean isAbstract;
 
     /**
@@ -40,7 +40,7 @@ public class Class extends Classifier {
     public Class(String name) {
         super(name);
         features = new ArrayList<Feature>();
-        interfaces = new ArrayList<Interface>();
+        superTypes = new ArrayList<Classifier>();
         this.isAbstract = false;
     }
     
@@ -50,8 +50,8 @@ public class Class extends Classifier {
      */
     public Class(String name, Boolean isAbstract) {
         super(name);
-        features = new ArrayList<Feature>();
-        interfaces = new ArrayList<Interface>();
+        features = new ArrayList<Feature>(); 
+        superTypes = new ArrayList<Classifier>();
         this.isAbstract = isAbstract;
     }
     
@@ -61,14 +61,15 @@ public class Class extends Classifier {
      */
     public void addFeature(Feature f) {
         features.add(f);
+        f.setMyClass(this);
     }
     
     /**
      * 
-     * @param i
+     * @param c
      */
-    public void addInterface(Interface i) {
-        interfaces.add(i);
+    public void addSupertype(Classifier c) {
+        superTypes.add(c);
     }
     
     /**
@@ -94,11 +95,20 @@ public class Class extends Classifier {
         if (isAbstract)
             str += "abstract ";
         
-        str += "class " + getName() + System.lineSeparator() + "{" + System.lineSeparator();
+        str += "class " + getName();
+
+        if (superTypes.size() > 0)
+        	str += " implements ";
+
+        for (Classifier c : superTypes)
+        	str += c.getName() + " ";
+        
+        str += "{" + System.lineSeparator();
         
         for (Feature f : features)
-            str += f.toString();
-        
+        	if (!(f instanceof AssociationEnd))
+                str += f.toString();
+
         str += "}" + System.lineSeparator();
         
         return str;

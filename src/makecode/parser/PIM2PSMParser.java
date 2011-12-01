@@ -38,7 +38,7 @@ public class PIM2PSMParser {
             
             DefaultHandler handler;
             
-            if (type.equals("ecore"))    
+            if (type.equals("ecore"))
                 handler = new EcoreXmlHandler();
             else if (type.equals("uml"))
                 handler = new UmlXmlHandler();

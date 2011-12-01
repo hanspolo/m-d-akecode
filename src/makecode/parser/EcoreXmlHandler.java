@@ -19,8 +19,13 @@
 
 package makecode.parser;
 
+import java.util.HashMap;
+
+import makecode.uml.Association;
+import makecode.uml.AssociationEnd;
 import makecode.uml.Attribute;
 import makecode.uml.Class;
+import makecode.uml.Classifier;
 import makecode.uml.DataType;
 import makecode.uml.Interface;
 import makecode.uml.ModelElement;
@@ -37,17 +42,23 @@ class EcoreXmlHandler extends DefaultHandler {
     private int typeIndex, nameIndex;
     private ModelElement actClass;
     private Operation actOperation;
+    private HashMap<AssociationEnd, String> assocEnds;
+    private HashMap<String, Association> assocOpposite;
+    private HashMap<ModelElement, String> superTypes;
     
     
     public EcoreXmlHandler() {
         tree = ModelTree.getInstance();
+        assocEnds = new HashMap<AssociationEnd, String>();
+        assocOpposite = new HashMap<String, Association>();
+        superTypes = new HashMap<ModelElement, String>();
     }
     
     /**
      * 
      */
     @Override
-    public void startElement(    String uri,
+    public void startElement(   String uri,
                                 String localName,
                                 String qName,
                                 Attributes attributes) throws SAXException {
@@ -74,6 +85,9 @@ class EcoreXmlHandler extends DefaultHandler {
                 // normal Class
                 else
                     actClass = new Class(attributes.getValue(nameIndex));
+                
+                if (attributes.getIndex("eSuperTypes") >= 0)
+                	superTypes.put(actClass, attributes.getValue(attributes.getIndex("eSuperTypes")));
             }
             
             
@@ -92,11 +106,11 @@ class EcoreXmlHandler extends DefaultHandler {
             // Operation returns a value
             if (attributes.getIndex("eType") >= 0)
                 actOperation = 
-                    new Operation(    attributes.getValue(nameIndex),
+                    new Operation(  attributes.getValue(nameIndex),
                                     this.convertEType(attributes.getValue(attributes.getIndex("eType"))));
             // Operation doesn't return a value
             else
-                actOperation = new Operation(    attributes.getValue(nameIndex));
+                actOperation = new Operation(attributes.getValue(nameIndex));
         }
         
         
@@ -108,7 +122,7 @@ class EcoreXmlHandler extends DefaultHandler {
             
             // Add Parameter to Operation
             actOperation.addParameter(
-                    new Parameter(    attributes.getValue(nameIndex),
+                    new Parameter(  attributes.getValue(nameIndex),
                                     this.convertEType(attributes.getValue(attributes.getIndex("eType")))));
         }
         
@@ -122,23 +136,65 @@ class EcoreXmlHandler extends DefaultHandler {
             // Feature is an Attribute
             if (attributes.getValue(typeIndex).equals("ecore:EAttribute")) {
                 Attribute attr = 
-                        new Attribute(    attributes.getValue(nameIndex), 
+                        new Attribute(  attributes.getValue(nameIndex), 
                                         this.convertEType(attributes.getValue(attributes.getIndex("eType"))));
                 
-                attr.setIsChangeable(    attributes.getIndex("changeable")    >= 0);
-                attr.setIsId(            attributes.getIndex("id")            >= 0);
-                attr.setIsOrdered(        attributes.getIndex("ordered")        >= 0);
-                attr.setIsUnique(        attributes.getIndex("unique")        >= 0);
-                attr.setIsTransient(    attributes.getIndex("transient")    >= 0);
-                attr.setIsVolatile(        attributes.getIndex("volatile")        >= 0);
+                attr.setIsChangeable(    attributes.getIndex("changeable")   >= 0);
+                attr.setIsId(            attributes.getIndex("id")           >= 0);
+                attr.setIsOrdered(       attributes.getIndex("ordered")      >= 0);
+                attr.setIsUnique(        attributes.getIndex("unique")       >= 0);
+                attr.setIsTransient(     attributes.getIndex("transient")    >= 0);
+                attr.setIsVolatile(      attributes.getIndex("volatile")     >= 0);
                 
                 ((Class)actClass).addFeature(attr);
             }
             
             
             // Feature is a Reference
-            if (attributes.getValue(typeIndex).equals("ecore:EReference")) {
+            if (attributes.getValue(typeIndex).equals("ecore:EReference")) {  
+            	int i;
+            	int lowerBound = (i = attributes.getIndex("lowerBound")) >= 0 ? Integer.parseInt(attributes.getValue(i)) : 0;
+            	int upperBound = (i = attributes.getIndex("upperBound")) >= 0 ? Integer.parseInt(attributes.getValue(i)) : 1;
+            	boolean containment = attributes.getIndex("containment") >= 0;
+            	
+            	// Init the ends of the Association
+            	AssociationEnd startAssoc = 
+                        new AssociationEnd( attributes.getValue(nameIndex),
+                                            0, 0, false);
+            	AssociationEnd endAssoc = 
+                        new AssociationEnd( attributes.getValue(nameIndex),
+                                            lowerBound, upperBound, containment);
+            	
+            	startAssoc.setOtherEnd(endAssoc);
+            	endAssoc.setOtherEnd(startAssoc);
+            	
+            	// Init Association
+            	Association assoc = 
+            			new Association(attributes.getValue(nameIndex), startAssoc, endAssoc);
+            	
+            	// Add to the Model
+            	tree.addModelElement(assoc);
+            	
+            	if (actClass instanceof Class)
+            		((Class)actClass).addFeature(startAssoc);
+            	
+                assocEnds.put(endAssoc, this.convertName(attributes.getValue(attributes.getIndex("eType"))));
                 
+                // If Association has an Opposite
+                // And opposite exists
+                // Then connect them
+                if ((i = attributes.getIndex("eOpposite")) >= 0 &&
+                	(assocOpposite.containsKey(attributes.getValue(nameIndex)))) {
+                	
+                	Association opposite = assocOpposite.get(attributes.getValue(nameIndex));
+                	
+                	assoc.setOpposite(opposite);
+                	opposite.setOpposite(assoc);
+                }
+                // If Association has an Opposite but the opposite doesn't exist
+                // Then save the Association in a Map
+                else if((i = attributes.getIndex("eOpposite")) >= 0)
+                	assocOpposite.put(this.convertName(attributes.getValue(i)), assoc);
             }
         }
     }
@@ -147,10 +203,40 @@ class EcoreXmlHandler extends DefaultHandler {
      * 
      */
     @Override
-    public void endElement(    String uri,
+    public void endElement( String uri,
                             String localName,
                             String qName) throws SAXException {
-        
+    	
+        if (qName.equals("ecore:EPackage")) {
+            String className;
+    		
+            for (AssociationEnd assoc : assocEnds.keySet()) {
+                className = assocEnds.get(assoc);
+
+                for (ModelElement e : tree.getModelElements())
+                    if (e.getName().equals(className))
+                        ((Class)e).addFeature(assoc);
+            }
+            
+            for (ModelElement element : superTypes.keySet()) {
+            	String[] stypes = superTypes.get(element).split(" ");
+            	
+            	for (String stype : stypes) {
+            		stype = this.convertName(stype);
+            		for (ModelElement e : tree.getModelElements()) {
+            			if (e instanceof Classifier &&
+            				e.getName().equals(stype)) {
+            				
+            				if (element instanceof Class)
+            					((Class)element).addSupertype((Classifier)e);
+            				if (element instanceof Interface)
+            					((Interface)element).addSupertype((Classifier)e);
+            			}
+            		}
+            	}
+            }
+        }
+    	
         if (qName.equals("eClassifiers"))
             tree.addModelElement(actClass);
         
@@ -166,13 +252,17 @@ class EcoreXmlHandler extends DefaultHandler {
      * 
      */
     @Override
-    public void characters(    char ch[],
+    public void characters( char ch[],
                             int start,
                             int length) throws SAXException {
         return ;
     }
     
-    
+    /**
+     * 
+     * @param str
+     * @return
+     */
     private DataType convertEType(String str) {
         String[] parts = str.split("//");
         str = parts[parts.length - 1];
@@ -180,5 +270,17 @@ class EcoreXmlHandler extends DefaultHandler {
         DataType dt = new DataType(str.substring(1));
         
         return dt;
+    }
+    
+    /**
+     * 
+     * @param str
+     * @return
+     */
+    private String convertName(String str) {
+        String[] parts = str.split("/");
+        str = parts[parts.length - 1];
+        
+        return str;
     }
 }

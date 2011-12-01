@@ -27,6 +27,7 @@ package makecode.uml;
 public class Parameter extends Typed {
 
     DataType type;
+    Operation operation;
     
     /**
      * 
@@ -37,7 +38,25 @@ public class Parameter extends Typed {
         this.type = type;
     }
     
-    public String toString() {
+    /**
+	 * @return the operation
+	 */
+	public Operation getOperation() {
+		return operation;
+	}
+
+	/**
+	 * @param operation the operation to set
+	 */
+	public void setOperation(Operation operation) {
+		this.operation = operation;
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
         String str = "";
         
         str += this.type + " " + getName();

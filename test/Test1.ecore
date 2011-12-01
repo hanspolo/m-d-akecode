@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Package"
     nsURI="uri.ns" nsPrefix="prefix.ns">
-  <eClassifiers xsi:type="ecore:EClass" name="Interface" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Interface" interface="true" eSuperTypes="#//AbstractClass">
     <eOperations name="interfaceMethod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractClass" abstract="true">
@@ -19,7 +19,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="unidirectionalReference"
         lowerBound="1" eType="#//UnidirectionalClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bidirectionalReference"
-        eType="#//BidirectionalClass" eOpposite="#//BidirectionalClass/oppositeReference"/>
+        eType="#//BidirectionalClass" containment="true" eOpposite="#//BidirectionalClass/oppositeReference"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="privateAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" defaultValueLiteral=""/>
   </eClassifiers>

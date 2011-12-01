@@ -30,6 +30,8 @@ import java.util.List;
 public class Interface extends Classifier {
 
     private List<Feature> features;
+    private List<Classifier> superTypes;
+
 
     /**
      * 
@@ -37,7 +39,8 @@ public class Interface extends Classifier {
      */
     public Interface(String name) {
         super(name);
-        features = new ArrayList<Feature>();        
+        features = new ArrayList<Feature>();
+        superTypes = new ArrayList<Classifier>();
     }
     
     /**
@@ -50,12 +53,27 @@ public class Interface extends Classifier {
     
     /**
      * 
+     * @param c
+     */
+    public void addSupertype(Classifier c) {
+        superTypes.add(c);
+    }
+    
+    /**
+     * 
      */
     public String toString() {
         String str = "";
         
-        str = "interface " + getName() + " {" + System.lineSeparator();
+        str = "interface " + getName();
 
+        if (superTypes.size() > 0)
+        	str += " implements ";
+
+        for (Classifier c : superTypes)
+        	str += c.getName() + " ";
+        
+        str += "{" + System.lineSeparator();
         for (Feature f : features)
             str += f.toString();
         

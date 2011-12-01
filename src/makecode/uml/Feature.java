@@ -27,6 +27,7 @@ package makecode.uml;
 public abstract class Feature extends Class {
 
     VisibilityType visibility;
+    Class myClass;
     
     /**
      * 
@@ -46,4 +47,18 @@ public abstract class Feature extends Class {
         super(name);
         visibility = v;
     }
+
+	/**
+	 * @return the class
+	 */
+	public Class getMyClass() {
+		return myClass;
+	}
+
+	/**
+	 * @param class the class to set
+	 */
+	public void setMyClass(Class myClass) {
+		this.myClass = myClass;
+	}
 }

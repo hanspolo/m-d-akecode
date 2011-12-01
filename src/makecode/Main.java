@@ -28,7 +28,7 @@ public class Main {
     
     public static void main(String[] args) {
         
-        if (args.length < 1) {
+        if (args.length <= 1) {
             System.out.printf("usage: %s [--help] [-f file] [-i inputType] [-t transform] [-db]", progname);
             System.exit(0);
         }

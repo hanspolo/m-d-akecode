@@ -29,7 +29,8 @@ import java.util.List;
  */
 public class Association extends ModelElement {
 
-    List<AssociationEnd> association;
+    List<AssociationEnd> associationEnds;
+    Association opposite;
     
     /**
      * 
@@ -39,13 +40,52 @@ public class Association extends ModelElement {
      */
     public Association (String name, AssociationEnd a, AssociationEnd b) {
         super(name);
-        association = new ArrayList<AssociationEnd>();
+        associationEnds = new ArrayList<AssociationEnd>();
         
-        association.add(a);
-        association.add(b);
+        associationEnds.add(a);
+        associationEnds.add(b);
+        
+        a.setAssociation(this);
+        b.setAssociation(this);
+        
+        opposite = null;
     }
     
-    public void addAssociation(AssociationEnd a) {
-        association.add(a);
+    public void addAssociationEnd(AssociationEnd a) {
+        associationEnds.add(a);
+        a.setAssociation(this);
     }
+
+	/**
+	 * @return the type
+	 */
+	public AssociationType getType() {
+		return AssociationType.CONTAINS;
+	}
+
+	/**
+	 * @return the opposite
+	 */
+	public Association getOpposite() {
+		return opposite;
+	}
+
+	/**
+	 * @param opposite the opposite to set
+	 */
+	public void setOpposite(Association opposite) {
+		this.opposite = opposite;
+	}
+	
+	public String toString() {
+		String str = "";
+		str += getName() + System.lineSeparator();
+		for (AssociationEnd e : associationEnds)
+			str += e.toString();
+		
+		if (opposite != null)
+			str += "Opposite: " + opposite.getName() + System.lineSeparator();
+		
+		return str;
+	}
 }

@@ -48,6 +48,7 @@ public class Operation extends Feature {
      */
     public void addParameter(Parameter p) {
         parameters.add(p);
+        p.setOperation(this);
     }
     
     /**
