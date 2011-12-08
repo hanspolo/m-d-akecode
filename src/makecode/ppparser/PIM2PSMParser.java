@@ -49,6 +49,6 @@ public class PIM2PSMParser {
                 throw new Exception();
             
             sax.parse(f, handler);
-            System.out.print(ModelTree.getInstance().toString());
+            //System.out.println(ModelTree.getInstance().toString());
     }
 }

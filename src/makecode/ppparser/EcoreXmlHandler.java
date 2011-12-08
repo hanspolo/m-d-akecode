@@ -43,6 +43,7 @@ class EcoreXmlHandler extends DefaultHandler {
     private int typeIndex, nameIndex;
     private ModelElement actClass;
     private Operation actOperation;
+    private String actPackage;
     private HashMap<AssociationEnd, String> assocEnds;
     private HashMap<String, Association> assocOpposite;
     private HashMap<ModelElement, String> superTypes;
@@ -67,6 +68,7 @@ class EcoreXmlHandler extends DefaultHandler {
         // Describes a Package
         if (qName.equals("ecore:EPackage")) {
             nameIndex = attributes.getIndex("name");
+            actPackage = attributes.getValue(nameIndex);
         }
         
          
@@ -238,8 +240,10 @@ class EcoreXmlHandler extends DefaultHandler {
             }
         }
     	
-        if (qName.equals("eClassifiers"))
+        if (qName.equals("eClassifiers")) {
+        	actClass.setPackageName(actPackage);
             tree.addModelElement(actClass);
+        }
         
         if (qName.equals("eOperations")) {
             if (actClass instanceof Class)

@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/psm2code" xmlns:tns="http://www.example.org/psm2code" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/psm2code" xmlns="http://www.example.org/psm2code"
+	elementFormDefault="qualified">
 
-    <element name="Root" type="string"></element>
+	<xs:element name="Root">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Files" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+	</xs:element>
 
-</schema>
+	<xs:element name="Files">
+		<xs:complexType>
+		    <xs:sequence>
+                <xs:element ref="File" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+            
+			<xs:attribute name="type" type="xs:string" />
+        </xs:complexType>
+	</xs:element>
+
+	<xs:element name="File" type="xs:string" />
+</xs:schema>

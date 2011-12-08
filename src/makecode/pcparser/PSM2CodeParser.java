@@ -19,9 +19,49 @@
 
 package makecode.pcparser;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import makecode.uml.ModelTree;
+
+import org.xml.sax.helpers.DefaultHandler;
+
 public class PSM2CodeParser {
 
-	public void parse(String type) {
+	public void parse(String type) throws Exception {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParser sax = factory.newSAXParser();
+
+		MetaModelHandler handler = new MetaModelHandler();
+
+		sax.parse("meta/psm2" + type + ".xml", handler);
+
+		Template tpl;
+
+		for (String file : handler.getFilesByType("required")) {
+			tpl = new Template(ModelTree.getInstance().getModelElements().get(0));
+			tpl.render(file);
+			System.out.println(tpl.render(file));
+		}
 		
+		for (String file : handler.getFilesByType("database")) {
+			tpl = new Template(ModelTree.getInstance().getModelElements().get(0));
+			System.out.println(tpl.render(file));
+		}
+		
+		for (String file : handler.getFilesByType("interface")) {
+			tpl = new Template(ModelTree.getInstance().getModelElements().get(0));
+			System.out.println(tpl.render(file));
+		}
+		
+		for (String file : handler.getFilesByType("model")) {
+			tpl = new Template(ModelTree.getInstance().getModelElements().get(0));
+			System.out.println(tpl.render(file));
+		}
+		
+		for (String file : handler.getFilesByType("rest")) {
+			tpl = new Template(ModelTree.getInstance().getModelElements().get(0));
+			System.out.println(tpl.render(file));
+		}		
 	}
 }

@@ -27,6 +27,7 @@ package makecode.uml;
 public class ModelElement {
 
     private String name;
+    private String packageName;
     
     /**
      * 
@@ -34,6 +35,7 @@ public class ModelElement {
      */
     public ModelElement(String name) {
         this.name = name;
+        this.packageName = "";
     }
 
     /**
@@ -51,4 +53,18 @@ public class ModelElement {
     public void setName(String name) {
         this.name = name;
     }
+
+	/**
+	 * @return the packageName
+	 */
+	public String getPackageName() {
+		return packageName;
+	}
+
+	/**
+	 * @param packageName the packageName to set
+	 */
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
 }

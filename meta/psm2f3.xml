@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root xmlns="http://www.example.org/psm2code" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:schemaLocation="http://www.example.org/psm2code psm2code.xsd ">
+        
+        <Files type="required">
+            <File>f3/AbstractAxonClass.tpl.php</File>
+            <File>f3/ConfigFile.tpl.php</File>
+            <File>f3/IndexFile.tpl.php</File>
+        </Files>
+        
+        <Files type="interface">
+            <File>f3/Interface.tpl.php</File>
+        </Files>
+        
+        <Files type="model">
+            <File>f3/StoredModelClass.tpl.php</File>
+            <File>f3/ModelClass.tpl.php</File>
+        </Files>
+
+        <Files type="database">
+            <File>f3/DatabaseSchema.tpl.sql</File>
+        </Files>
+        
+        <Files type="rest">
+            <File>f3/RestController.tpl.php</File>
+        </Files>
+</Root>

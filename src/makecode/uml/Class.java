@@ -63,8 +63,36 @@ public class Class extends Classifier {
         features.add(f);
         f.setMyClass(this);
     }
-    
+
     /**
+	 * @return the features
+	 */
+	public List<Feature> getFeatures() {
+		return features;
+	}
+
+	/**
+	 * @param features the features to set
+	 */
+	public void setFeatures(List<Feature> features) {
+		this.features = features;
+	}
+
+	/**
+	 * @return the superTypes
+	 */
+	public List<Classifier> getSuperTypes() {
+		return superTypes;
+	}
+
+	/**
+	 * @param superTypes the superTypes to set
+	 */
+	public void setSuperTypes(List<Classifier> superTypes) {
+		this.superTypes = superTypes;
+	}
+
+	/**
      * 
      * @param c
      */
